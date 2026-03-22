@@ -4,50 +4,50 @@ import { ChevronLeft, ChevronRight, Plus, ArrowRight, MessageSquare, GitBranch, 
 const carouselCards = [
   {
     id: 1,
-    category: "Запросы клиентов",
-    title: "Создавайте то, что нужно клиентам",
+    category: "Защита от слежки",
+    title: "Скройте свой IP и историю браузинга",
     icon: ArrowRight,
     mockup: "intercom",
   },
   {
     id: 2,
-    category: "Git-интеграция",
-    title: "Автоматизируйте PR и коммиты",
+    category: "Обход блокировок",
+    title: "Доступ к любому контенту в мире",
     icon: Plus,
     mockup: "github",
   },
   {
     id: 3,
-    category: "Orbit Mobile",
-    title: "Управляйте работой откуда угодно",
+    category: "NightCore Mobile",
+    title: "Защита на смартфоне — iOS и Android",
     icon: ArrowRight,
     mockup: "mobile",
   },
   {
     id: 4,
-    category: "Orbit Asks",
-    title: "Превращайте запросы в задачи",
+    category: "Electron App",
+    title: "Нативное приложение для Windows и Mac",
     icon: ArrowRight,
     mockup: "asks",
   },
   {
     id: 5,
-    category: "Интеграции Orbit",
-    title: "100+ способов расширить возможности",
+    category: "Split Tunneling",
+    title: "Выбирайте, какой трафик идёт через VPN",
     icon: ArrowRight,
     mockup: "integrations",
   },
   {
     id: 6,
-    category: "Интеграция с Figma",
-    title: "Связь между разработкой и дизайном",
+    category: "Публичный Wi-Fi",
+    title: "Безопасное подключение в кафе и отелях",
     icon: ArrowRight,
     mockup: "figma",
   },
   {
     id: 7,
     category: "Для разработчиков",
-    title: "Создавайте плагины через Orbit API",
+    title: "API и кастомные конфигурации WireGuard",
     icon: ArrowRight,
     mockup: "api",
   },
@@ -242,23 +242,22 @@ export function WorkflowsSection() {
           <div className="lg:max-w-xl">
             {/* Orange indicator */}
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-2 h-2 rounded-full bg-orange-500" />
-              <span className="text-sm text-zinc-400">Процессы и интеграции</span>
+              <div className="w-2 h-2 rounded-full bg-violet-500" />
+              <span className="text-sm text-zinc-400">Возможности и платформы</span>
               <ChevronRight className="w-4 h-4 text-zinc-600" />
             </div>
 
             {/* Heading */}
             <h2 className="text-4xl md:text-5xl font-medium text-white leading-[1.1]">
-              Работайте слаженно
+              Защита везде,
               <br />
-              между инструментами
+              на всех устройствах
             </h2>
           </div>
 
           {/* Description */}
           <p className="text-zinc-400 lg:max-w-sm lg:pt-12">
-            Расширьте возможности Orbit с помощью интеграций, которые синхронизируют всю команду и держат фокус на
-            главном.
+            NightCore работает на всех ваших устройствах — от смартфона до настольного Electron-приложения. Единый аккаунт, полная защита.
           </p>
         </div>
 

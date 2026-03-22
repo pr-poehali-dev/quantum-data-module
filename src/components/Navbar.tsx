@@ -1,4 +1,4 @@
-import { CirclePower } from "lucide-react"
+import Icon from "@/components/ui/icon"
 
 export function Navbar() {
   return (
@@ -6,24 +6,21 @@ export function Navbar() {
       <div className="w-full flex justify-center px-6 py-4">
         <div className="w-full max-w-4xl flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CirclePower className="w-5 h-5 text-white" />
-            <span className="text-white font-semibold">Orbit</span>
+            <Icon name="Shield" className="w-5 h-5 text-violet-400" />
+            <span className="text-white font-semibold">NightCore</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">
-              Продукт
-            </a>
-            <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">
-              Ресурсы
+              Возможности
             </a>
             <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">
               Тарифы
             </a>
             <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">
-              Клиенты
+              Скачать
             </a>
             <a href="#" className="text-sm text-zinc-400 hover:text-white transition-colors">
-              Контакты
+              Поддержка
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -32,9 +29,9 @@ export function Navbar() {
             </a>
             <a
               href="#"
-              className="text-sm text-white bg-zinc-800 hover:bg-zinc-700 px-3.5 py-1.5 rounded-md border border-zinc-700 transition-colors"
+              className="text-sm text-white bg-violet-600 hover:bg-violet-500 px-3.5 py-1.5 rounded-md border border-violet-500 transition-colors"
             >
-              Регистрация
+              Попробовать бесплатно
             </a>
           </div>
         </div>
