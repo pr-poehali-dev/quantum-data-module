@@ -1,323 +1,136 @@
-import { useState } from "react"
-import { ChevronLeft, ChevronRight, Plus, ArrowRight, MessageSquare, GitBranch, X, Puzzle, Figma } from "lucide-react"
+import { motion } from "framer-motion"
 
-const carouselCards = [
+const useCases = [
   {
-    id: 1,
-    category: "Защита от слежки",
-    title: "Скройте свой IP и историю браузинга",
-    icon: ArrowRight,
-    mockup: "intercom",
+    icon: "🎬",
+    title: "Стриминг без границ",
+    description: "Netflix, Hulu, BBC iPlayer — смотрите любой контент из любой точки мира.",
+    tag: "Развлечения",
+    accentColor: "var(--accent)",
   },
   {
-    id: 2,
-    category: "Обход блокировок",
-    title: "Доступ к любому контенту в мире",
-    icon: Plus,
-    mockup: "github",
+    icon: "💼",
+    title: "Безопасный удалённый доступ",
+    description: "Подключайтесь к корпоративным сетям из любого места с шифрованием корпоративного уровня.",
+    tag: "Бизнес",
+    accentColor: "var(--cyan)",
   },
   {
-    id: 3,
-    category: "NightCore Mobile",
-    title: "Защита на смартфоне — iOS и Android",
-    icon: ArrowRight,
-    mockup: "mobile",
+    icon: "☕",
+    title: "Публичный Wi-Fi",
+    description: "Кафе, аэропорты, отели — защита от перехвата данных в открытых сетях.",
+    tag: "В дороге",
+    accentColor: "var(--green)",
   },
   {
-    id: 4,
-    category: "Electron App",
-    title: "Нативное приложение для Windows и Mac",
-    icon: ArrowRight,
-    mockup: "asks",
+    icon: "🎮",
+    title: "Геймерский VPN",
+    description: "Сниженный пинг, защита от DDoS-атак, доступ к ранним релизам из других регионов.",
+    tag: "Игры",
+    accentColor: "var(--accent-bright)",
   },
   {
-    id: 5,
-    category: "Split Tunneling",
-    title: "Выбирайте, какой трафик идёт через VPN",
-    icon: ArrowRight,
-    mockup: "integrations",
+    icon: "📰",
+    title: "Обход цензуры",
+    description: "Свободный доступ к информации в любой стране без ограничений и блокировок.",
+    tag: "Свобода",
+    accentColor: "var(--cyan)",
   },
   {
-    id: 6,
-    category: "Публичный Wi-Fi",
-    title: "Безопасное подключение в кафе и отелях",
-    icon: ArrowRight,
-    mockup: "figma",
-  },
-  {
-    id: 7,
-    category: "Для разработчиков",
-    title: "API и кастомные конфигурации WireGuard",
-    icon: ArrowRight,
-    mockup: "api",
+    icon: "👨‍💻",
+    title: "Для разработчиков",
+    description: "API, кастомные конфигурации WireGuard, выделенные IP для DevOps-задач.",
+    tag: "DevOps",
+    accentColor: "var(--green)",
   },
 ]
 
-function IntercomMockup() {
-  return (
-    <div className="flex flex-col gap-3 p-4">
-      <div className="flex items-center gap-2 text-xs text-zinc-400">
-        <MessageSquare className="w-3.5 h-3.5" />
-        <span>Intercom</span>
-        <span className="text-zinc-600">·</span>
-        <span className="text-zinc-500">sarah@example.com</span>
-      </div>
-      <p className="text-sm text-zinc-300">
-        Нужна разбивка затрат <span className="text-zinc-500">по...</span>
-      </p>
-
-      <div className="mt-2 flex items-center gap-2 bg-zinc-800/50 rounded-lg px-3 py-2">
-        <div className="w-5 h-5 bg-zinc-700 rounded flex items-center justify-center">
-          <span className="text-[10px] text-zinc-400">A</span>
-        </div>
-        <span className="text-sm text-zinc-300">ACME</span>
-        <span className="text-xs text-zinc-500">Новый запрос</span>
-      </div>
-
-      <div className="mt-1 flex items-center gap-2 bg-zinc-800/30 rounded-lg px-3 py-2">
-        <div className="w-5 h-5 bg-yellow-500/20 rounded flex items-center justify-center">
-          <span className="text-[10px] text-yellow-500">◆</span>
-        </div>
-        <span className="text-sm text-zinc-400">Мультиоблачные</span>
-        <span className="text-xs text-zinc-500">затраты</span>
-      </div>
-
-      <div className="mt-1 flex items-center gap-2 px-3 py-2">
-        <div className="w-4 h-4 rounded-full border border-zinc-600" />
-        <span className="text-sm text-zinc-500">Планирование</span>
-        <div className="ml-2 flex items-center gap-1 text-xs text-zinc-600">
-          <span>Q4 2025</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function GitHubMockup() {
-  return (
-    <div className="flex flex-col gap-2 p-4">
-      <div className="flex items-center gap-2 text-xs">
-        <GitBranch className="w-3.5 h-3.5 text-zinc-500" />
-        <span className="text-zinc-400">#20319</span>
-        <span className="text-zinc-500">igor/lin 15287</span>
-        <span className="text-blue-400/70">add sourc...</span>
-      </div>
-
-      <div className="mt-3 space-y-2">
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-zinc-600">↗</span>
-          <span className="text-zinc-500">igor</span>
-          <span className="text-zinc-600">связал</span>
-          <span className="text-blue-400/70">igor/lin 15287</span>
-          <span className="text-zinc-600">add sou...</span>
-        </div>
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-zinc-600">↗</span>
-          <span className="text-zinc-500">igor</span>
-          <span className="text-zinc-600">изменил статус с В работе...</span>
-        </div>
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-zinc-600">↗</span>
-          <span className="text-zinc-500">GitHub</span>
-          <span className="text-zinc-600">изменил статус с На ревью...</span>
-        </div>
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-zinc-600">↗</span>
-          <span className="text-zinc-500">igor</span>
-          <span className="text-zinc-600">изменил статус с Готово...</span>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MobileMockup() {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="relative w-32 h-56 bg-zinc-900 rounded-2xl border border-zinc-700 overflow-hidden">
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-zinc-800 rounded-full" />
-        <div className="mt-6 px-3">
-          <div className="text-[10px] text-zinc-400 mb-2">Входящие</div>
-          <div className="space-y-1.5">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-6 bg-zinc-800/50 rounded" />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function AsksMockup() {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="w-24 h-24 rounded-2xl bg-zinc-800 flex items-center justify-center">
-        <X className="w-12 h-12 text-zinc-400" strokeWidth={2.5} />
-      </div>
-    </div>
-  )
-}
-
-function IntegrationsMockup() {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="grid grid-cols-2 gap-2">
-        {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="w-10 h-10 rounded-lg bg-zinc-800/50 flex items-center justify-center">
-            <Puzzle className="w-5 h-5 text-zinc-500" />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function FigmaMockup() {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="relative">
-        <Figma className="w-16 h-16 text-zinc-400" />
-      </div>
-    </div>
-  )
-}
-
-function ApiMockup() {
-  return (
-    <div className="flex items-center justify-center h-full">
-      <div className="bg-zinc-800/50 rounded-lg px-4 py-2 border border-zinc-700/50">
-        <span className="text-xs font-mono text-zinc-400">ORBIT API</span>
-      </div>
-    </div>
-  )
-}
-
-function CardMockup({ type }: { type: string }) {
-  switch (type) {
-    case "intercom":
-      return <IntercomMockup />
-    case "github":
-      return <GitHubMockup />
-    case "mobile":
-      return <MobileMockup />
-    case "asks":
-      return <AsksMockup />
-    case "integrations":
-      return <IntegrationsMockup />
-    case "figma":
-      return <FigmaMockup />
-    case "api":
-      return <ApiMockup />
-    default:
-      return null
-  }
-}
-
 export function WorkflowsSection() {
-  const [scrollPosition, setScrollPosition] = useState(0)
-
-  const scrollLeft = () => {
-    setScrollPosition(Math.max(0, scrollPosition - 1))
-  }
-
-  const scrollRight = () => {
-    setScrollPosition(Math.min(carouselCards.length - 4, scrollPosition + 1))
-  }
-
   return (
-    <section className="relative py-24" style={{ backgroundColor: "#09090B" }}>
-      {/* Top gradient */}
+    <section className="relative py-32 px-6" style={{ background: "var(--bg)" }}>
       <div
-        className="absolute top-0 left-0 right-0 pointer-events-none"
-        style={{
-          height: "20%",
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.05), transparent)",
-        }}
+        className="absolute inset-x-0 top-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 40% 40% at 20% 60%, rgba(0,212,255,0.04) 0%, transparent 60%)" }}
       />
 
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-16">
-          <div className="lg:max-w-xl">
-            {/* Orange indicator */}
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-2 h-2 rounded-full bg-violet-500" />
-              <span className="text-sm text-zinc-400">Возможности и платформы</span>
-              <ChevronRight className="w-4 h-4 text-zinc-600" />
-            </div>
-
-            {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-medium text-white leading-[1.1]">
-              Защита везде,
-              <br />
-              на всех устройствах
-            </h2>
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-1 h-4 rounded-full" style={{ background: "var(--cyan)" }} />
+            <span className="text-xs font-medium tracking-widest uppercase" style={{ color: "var(--text-muted)" }}>
+              Сценарии использования
+            </span>
           </div>
-
-          {/* Description */}
-          <p className="text-zinc-400 lg:max-w-sm lg:pt-12">
-            NightCore работает на всех ваших устройствах — от смартфона до настольного Electron-приложения. Единый аккаунт, полная защита.
-          </p>
-        </div>
-
-        {/* Carousel */}
-        <div className="relative overflow-hidden">
-          <div
-            className="flex gap-4 transition-transform duration-300 ease-out"
-            style={{ transform: `translateX(-${scrollPosition * (100 / 4)}%)` }}
+          <h2
+            className="text-4xl md:text-5xl font-semibold text-white"
+            style={{ letterSpacing: "-0.03em", lineHeight: 1.1 }}
           >
-            {carouselCards.map((card) => (
-              <div key={card.id} className="flex-shrink-0 w-[calc(25%-12px)] min-w-[280px]">
-                <div className="bg-zinc-900/50 border border-zinc-800/50 rounded-xl overflow-hidden h-[340px] flex flex-col">
-                  {/* Mockup area */}
-                  <div className="flex-1 relative overflow-hidden">
-                    <CardMockup type={card.mockup} />
-                    {/* Fade overlay */}
-                    <div
-                      className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-                      style={{
-                        background: "linear-gradient(to top, rgba(9,9,11,0.9), transparent)",
-                      }}
-                    />
-                  </div>
+            Защита везде,{" "}
+            <span className="text-gradient-accent">всегда</span>
+          </h2>
+        </motion.div>
 
-                  {/* Card footer - refactored for proper icon alignment */}
-                  <div className="p-4 border-t border-zinc-800/30">
-                    <div className="flex items-center justify-between gap-3">
-                      {/* Text content */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-zinc-500 mb-1">{card.category}</p>
-                        <p className="text-sm text-zinc-200 leading-snug">{card.title}</p>
-                      </div>
-                      {/* Icon button - fixed size, vertically centered */}
-                      <button className="flex-shrink-0 w-8 h-8 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-500 hover:text-zinc-300 hover:border-zinc-600 transition-colors">
-                        <card.icon className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {useCases.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="group rounded-2xl p-6 transition-all duration-300 cursor-pointer"
+              style={{
+                background: "var(--bg-card)",
+                border: "1px solid rgba(255,255,255,0.05)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${item.accentColor}30`
+                e.currentTarget.style.background = "var(--bg-elevated)"
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)"
+                e.currentTarget.style.background = "var(--bg-card)"
+              }}
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div
+                  className="w-11 h-11 rounded-xl flex items-center justify-center text-2xl"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  {item.icon}
                 </div>
+                <span
+                  className="text-xs px-2.5 py-1 rounded-full"
+                  style={{
+                    background: `${item.accentColor}12`,
+                    color: item.accentColor,
+                    border: `1px solid ${item.accentColor}25`,
+                  }}
+                >
+                  {item.tag}
+                </span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Navigation arrows */}
-        <div className="flex items-center justify-center gap-2 mt-8">
-          <button
-            onClick={scrollLeft}
-            className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            disabled={scrollPosition === 0}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={scrollRight}
-            className="w-10 h-10 rounded-full border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            disabled={scrollPosition >= carouselCards.length - 4}
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+              <h3 className="text-white font-semibold mb-2" style={{ letterSpacing: "-0.02em" }}>
+                {item.title}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                {item.description}
+              </p>
+              <div className="mt-4 flex items-center gap-1 text-xs transition-all duration-200 opacity-0 group-hover:opacity-100" style={{ color: item.accentColor }}>
+                <span>Подробнее</span>
+                <span>→</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
